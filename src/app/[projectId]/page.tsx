@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ interface TenantFormProps {
   projectId: string;
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default function TenantForm({
   params,
@@ -29,26 +29,26 @@ export default function TenantForm({
   const [project, setProject] = useState<Project>({ name: "" });
 
   useEffect(() => {
-    fetch(`http://localhost:3000/projects/${projectId}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Error fetching project with id: ${projectId}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setProject(data);
-    })
-    .catch((err) => {
-      console.error(err.message);
-    });
+    fetch(`https://backend.blvhn.online/projects/${projectId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error fetching project with id: ${projectId}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProject(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   }, [projectId]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/tenants", {
+      const response = await fetch("https://backend.blvhn.online/tenants", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
